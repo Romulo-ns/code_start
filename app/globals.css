@@ -1,26 +1,193 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --font-sans: "Inter", system-ui, sans-serif;
+  --color-brand-50: #f0fdf4;
+  --color-brand-400: #4ade80;
+  --color-brand-500: #22c55e;
+  --color-brand-600: #16a34a;
+  --color-surface-900: #0a0a0f;
+  --color-surface-800: #111118;
+  --color-surface-700: #1a1a24;
+  --color-surface-600: #23232f;
+  --color-surface-500: #2d2d3d;
+  --color-border: #2a2a3a;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #0a0a0f;
+  color: #e2e8f0;
+  font-family: "Inter", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #111118;
+}
+::-webkit-scrollbar-thumb {
+  background: #2a2a3a;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #22c55e55;
+}
+
+/* Code font */
+code, pre, .font-mono {
+  font-family: "JetBrains Mono", "Fira Code", "Cascadia Code", monospace;
+}
+
+/* Glow effects */
+.glow-green {
+  box-shadow: 0 0 20px rgba(34, 197, 94, 0.15);
+}
+.glow-green-sm {
+  box-shadow: 0 0 10px rgba(34, 197, 94, 0.2);
+}
+
+/* Glass card */
+.glass {
+  background: rgba(26, 26, 36, 0.8);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(42, 42, 58, 0.8);
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #22c55e, #3b82f6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Difficulty badges */
+.badge-easy {
+  background: rgba(34, 197, 94, 0.15);
+  color: #4ade80;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+.badge-medium {
+  background: rgba(234, 179, 8, 0.15);
+  color: #facc15;
+  border: 1px solid rgba(234, 179, 8, 0.3);
+}
+.badge-hard {
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 8px rgba(34, 197, 94, 0.3); }
+  50% { box-shadow: 0 0 20px rgba(34, 197, 94, 0.6); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.4s ease forwards;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Code editor */
+.code-editor {
+  font-family: "JetBrains Mono", "Fira Code", monospace;
+  font-size: 14px;
+  line-height: 1.6;
+  tab-size: 2;
+  background: #0d1117;
+  color: #e6edf3;
+  border: 1px solid #2a2a3a;
+  border-radius: 8px;
+  resize: none;
+  width: 100%;
+  padding: 16px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.code-editor:focus {
+  border-color: rgba(34, 197, 94, 0.5);
+  box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.2);
+}
+
+/* Prose for markdown */
+.prose-dark h2 {
+  color: #e2e8f0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+.prose-dark p {
+  color: #94a3b8;
+  margin-bottom: 0.75rem;
+  line-height: 1.7;
+}
+.prose-dark code {
+  background: #1a1a24;
+  border: 1px solid #2a2a3a;
+  border-radius: 4px;
+  padding: 0.1rem 0.4rem;
+  font-size: 0.875rem;
+  color: #4ade80;
+}
+.prose-dark pre {
+  background: #0d1117;
+  border: 1px solid #2a2a3a;
+  border-radius: 8px;
+  padding: 1rem;
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+.prose-dark pre code {
+  background: transparent;
+  border: none;
+  padding: 0;
+  color: #e6edf3;
+}
+.prose-dark ul {
+  color: #94a3b8;
+  padding-left: 1.5rem;
+  list-style: disc;
+  margin-bottom: 0.75rem;
+}
+.prose-dark li {
+  margin-bottom: 0.25rem;
+}
+.prose-dark strong {
+  color: #e2e8f0;
+  font-weight: 600;
 }
