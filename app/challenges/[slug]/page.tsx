@@ -49,10 +49,9 @@ export default async function ChallengePage({ params }: PageProps) {
   const diff = difficultyConfig[challenge.difficulty];
   const isSolved = !!userSubmission;
 
-  const defaultCode = `function solution(/* parâmetros */) {
-  // Escreva sua solução aqui
-  
-}`;
+  const defaultCode = challenge.language === "javascript" 
+    ? `function solution(/* parâmetros */) {\n  // Escreva sua solução aqui\n  \n}`
+    : `void\tft_putchar(char c);\n\nvoid\tft_print_alphabet(void)\n{\n\t// Escreva sua solução aqui\n}`;
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
@@ -140,6 +139,7 @@ export default async function ChallengePage({ params }: PageProps) {
             challengeId={challenge.id}
             testCases={challenge.testCases}
             defaultCode={userSubmission?.code ?? defaultCode}
+            language={challenge.language}
           />
         </div>
       </div>

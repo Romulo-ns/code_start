@@ -71,6 +71,7 @@ model Challenge {
   description String       @db.Text
   difficulty  Difficulty
   points      Int          @default(10)
+  language    String       @default("javascript")
   hints       String[]
   solution    String       @db.Text
   explanation String       @db.Text

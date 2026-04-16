@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
   }
 
   // Evaluate the submission
-  const { results, isCorrect } = evaluateSubmission(code, challenge.testCases);
+  const { results, isCorrect } = await evaluateSubmission(code, challenge.testCases, language);
 
   // Save submission to DB
   const submission = await prisma.submission.create({

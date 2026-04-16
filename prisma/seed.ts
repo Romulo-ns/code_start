@@ -2,345 +2,277 @@ import { prisma } from "@/lib/prisma";
 import { Difficulty } from "@prisma/client";
 
 const challenges = [
+  // --- JAVASCRIPT ---
   {
     title: "Soma de Dois Números",
     slug: "soma-de-dois-numeros",
-    description: `Crie uma função chamada \`solution\` que receba dois números e retorne a soma deles.
-
-**Exemplo:**
-\`\`\`
-solution(2, 3) → 5
-solution(10, 20) → 30
-solution(-5, 5) → 0
-\`\`\`
-
-Este é o desafio mais básico de programação. Você vai aprender a criar funções e trabalhar com operadores aritméticos.`,
+    language: "javascript",
+    description: "Crie uma função chamada `solution` que receba dois números e retorne a soma deles.",
     difficulty: Difficulty.EASY,
     points: 10,
-    hints: [
-      "Use a palavra-chave 'function' para criar uma função",
-      "O operador '+' serve para somar números",
-      "Lembre de usar 'return' para retornar o resultado",
-    ],
-    solution: `function solution(a, b) {
-  return a + b;
-}`,
-    explanation: `## Como funciona
-
-Para resolver este desafio, criamos uma função chamada \`solution\` que aceita dois parâmetros (\`a\` e \`b\`) e retorna a soma usando o operador \`+\`.
-
-\`\`\`javascript
-function solution(a, b) {
-  return a + b;
-}
-\`\`\`
-
-**Conceitos aprendidos:**
-- **Funções**: blocos de código reutilizáveis
-- **Parâmetros**: valores que passamos para a função
-- **return**: palavra-chave para devolver um valor
-- **Operador +**: usado para somar números`,
-    tags: ["funções", "matemática", "iniciante"],
+    hints: ["Use o operador +", "Lembre do return"],
+    solution: "function solution(a, b) { return a + b; }",
+    explanation: "Soma simples de dois inteiros.",
+    tags: ["javascript", "iniciante"],
     testCases: [
       { input: "2, 3", expected: "5", isHidden: false },
-      { input: "10, 20", expected: "30", isHidden: false },
-      { input: "-5, 5", expected: "0", isHidden: false },
-      { input: "0, 0", expected: "0", isHidden: true },
-      { input: "100, 200", expected: "300", isHidden: true },
+    ],
+  },
+  // --- SHELL (Piscine) ---
+  {
+    title: "Ex 01: Only the best know Z",
+    slug: "ex01-z",
+    language: "bash",
+    description: "Crie um arquivo chamado `z` (ou apenas dê o comando `cat z`) que retorne 'Z' seguido de uma quebra de linha.",
+    difficulty: Difficulty.EASY,
+    points: 5,
+    hints: ["Use echo Z"],
+    solution: "echo Z",
+    explanation: "Basta imprimir Z.",
+    tags: ["bash", "piscine"],
+    testCases: [
+      { input: "", expected: "Z", isHidden: false },
     ],
   },
   {
-    title: "Número Par ou Ímpar",
-    slug: "par-ou-impar",
-    description: `Crie uma função chamada \`solution\` que receba um número e retorne \`"par"\` se for par ou \`"impar"\` se for ímpar.
-
-**Exemplo:**
-\`\`\`
-solution(4) → "par"
-solution(7) → "impar"
-solution(0) → "par"
-\`\`\`
-
-Dica: Um número é par quando o resto da divisão por 2 é zero.`,
+    title: "Ex 03: find_sh",
+    slug: "ex03-find-sh",
+    language: "bash",
+    description: "Escreva uma linha de comando que procure todos os nomes de arquivos que terminam com '.sh' no diretório atual e subdiretórios, exibindo apenas o nome sem a extensão.",
+    difficulty: Difficulty.MEDIUM,
+    points: 10,
+    hints: ["Use find", "Use basename ou sed"],
+    solution: "find . -type f -name \"*.sh\" -exec basename {} .sh \\;",
+    explanation: "Combina find com basename para limpar a extensão.",
+    tags: ["bash", "piscine"],
+    testCases: [
+      { input: "", expected: "find_sh", isHidden: false },
+    ],
+  },
+  // --- C (Piscine) ---
+  {
+    title: "Ex 06: ft_print_alphabet",
+    slug: "ex06-ft-print-alphabet",
+    language: "c",
+    description: "Exiba o alfabeto em minúsculas em ordem crescente.\n\n`void ft_print_alphabet(void);`",
     difficulty: Difficulty.EASY,
     points: 10,
-    hints: [
-      "Use o operador % (módulo) para obter o resto da divisão",
-      "Se número % 2 === 0, o número é par",
-      "Use if/else para retornar os valores corretos",
-    ],
-    solution: `function solution(n) {
-  if (n % 2 === 0) {
-    return "par";
-  } else {
-    return "impar";
-  }
-}`,
-    explanation: `## Como funciona
-
-Usamos o operador **módulo (%)**  para verificar se um número é divisível por 2.
-
-\`\`\`javascript
-function solution(n) {
-  if (n % 2 === 0) {
-    return "par";
-  } else {
-    return "impar";
-  }
-}
-\`\`\`
-
-**Conceitos aprendidos:**
-- **Operador %**: retorna o resto da divisão
-- **if/else**: estrutura de decisão
-- **Comparação ===**: verifica igualdade estrita`,
-    tags: ["condicionais", "matemática", "iniciante"],
-    testCases: [
-      { input: "4", expected: '"par"', isHidden: false },
-      { input: "7", expected: '"impar"', isHidden: false },
-      { input: "0", expected: '"par"', isHidden: false },
-      { input: "1", expected: '"impar"', isHidden: true },
-      { input: "100", expected: '"par"', isHidden: true },
-    ],
+    hints: ["Loop de 'a' até 'z'"],
+    solution: "void ft_putchar(char c);\nvoid ft_print_alphabet(void) { char c = 'a'; while(c<='z') ft_putchar(c++); }",
+    explanation: "Loop simples de caracteres.",
+    tags: ["c", "piscine"],
+    testCases: [{ input: "ft_print_alphabet();", expected: "abcdefghijklmnopqrstuvwxyz", isHidden: false }],
   },
   {
-    title: "FizzBuzz",
-    slug: "fizzbuzz",
-    description: `Crie uma função chamada \`solution\` que receba um número e:
-- Retorne \`"Fizz"\` se divisível por 3
-- Retorne \`"Buzz"\` se divisível por 5
-- Retorne \`"FizzBuzz"\` se divisível por ambos
-- Retorne o próprio número caso contrário
-
-**Exemplo:**
-\`\`\`
-solution(3) → "Fizz"
-solution(5) → "Buzz"
-solution(15) → "FizzBuzz"
-solution(7) → 7
-\`\`\`
-
-Este é um dos desafios mais famosos de programação!`,
+    title: "Ex 07: ft_print_numbers",
+    slug: "ex07-ft-print-numbers",
+    language: "c",
+    description: "Exiba todos os dígitos em ordem crescente.\n\n`void ft_print_numbers(void);`",
     difficulty: Difficulty.EASY,
-    points: 15,
-    hints: [
-      "Verifique divisibilidade por ambos (3 e 5) primeiro",
-      "Use o operador % para verificar divisibilidade",
-      "A ordem dos if/else importa!",
-    ],
-    solution: `function solution(n) {
-  if (n % 3 === 0 && n % 5 === 0) {
-    return "FizzBuzz";
-  } else if (n % 3 === 0) {
-    return "Fizz";
-  } else if (n % 5 === 0) {
-    return "Buzz";
-  } else {
-    return n;
-  }
-}`,
-    explanation: `## Como funciona
-
-A chave é verificar \`FizzBuzz\` (divisível por 15) **antes** de checar Fizz e Buzz individualmente.
-
-\`\`\`javascript
-function solution(n) {
-  if (n % 3 === 0 && n % 5 === 0) return "FizzBuzz";
-  if (n % 3 === 0) return "Fizz";
-  if (n % 5 === 0) return "Buzz";
-  return n;
-}
-\`\`\`
-
-**Conceitos aprendidos:**
-- **Operador &&**: "e" lógico
-- **Múltiplas condições**: usando if/else if/else
-- **Ordem de verificação**: lógica sequencial`,
-    tags: ["condicionais", "lógica", "clássico"],
+    points: 10,
+    hints: ["Loop de '0' até '9'"],
+    solution: "void ft_putchar(char c);\nvoid ft_print_numbers(void) { char c = '0'; while(c<='9') ft_putchar(c++); }",
+    explanation: "Loop de dígitos.",
+    tags: ["c", "piscine"],
+    testCases: [{ input: "ft_print_numbers();", expected: "0123456789", isHidden: false }],
+  },
+  {
+    title: "Ex 08: ft_is_negative",
+    slug: "ex08-ft-is-negative",
+    language: "c",
+    description: "Exiba 'N' se n for negativo, ou 'P' se positivo ou nulo.\n\n`void ft_is_negative(int n);`",
+    difficulty: Difficulty.EASY,
+    points: 10,
+    hints: ["if (n < 0)"],
+    solution: "void ft_putchar(char c);\nvoid ft_is_negative(int n) { if(n<0) ft_putchar('N'); else ft_putchar('P'); }",
+    explanation: "Condicional básica.",
+    tags: ["c", "piscine"],
     testCases: [
-      { input: "3", expected: '"Fizz"', isHidden: false },
-      { input: "5", expected: '"Buzz"', isHidden: false },
-      { input: "15", expected: '"FizzBuzz"', isHidden: false },
-      { input: "7", expected: "7", isHidden: false },
-      { input: "30", expected: '"FizzBuzz"', isHidden: true },
-      { input: "9", expected: '"Fizz"', isHidden: true },
+      { input: "ft_is_negative(-1);", expected: "N", isHidden: false },
+      { input: "ft_is_negative(42);", expected: "P", isHidden: false },
     ],
   },
   {
-    title: "Reverter uma String",
-    slug: "reverter-string",
-    description: `Crie uma função chamada \`solution\` que receba uma string e retorne ela ao contrário.
-
-**Exemplo:**
-\`\`\`
-solution("hello") → "olleh"
-solution("JavaScript") → "tpircSavaJ"
-solution("abc") → "cba"
-\`\`\``,
+    title: "Ex 09: ft_ft",
+    slug: "ex09-ft-ft",
+    language: "c",
+    description: "Atribua 42 ao inteiro apontado pelo parâmetro.\n\n`void ft_ft(int *nbr);`",
+    difficulty: Difficulty.EASY,
+    points: 10,
+    hints: ["*nbr = 42"],
+    solution: "void ft_ft(int *nbr) { *nbr = 42; }",
+    explanation: "Ponteiros básicos.",
+    tags: ["c", "piscine"],
+    testCases: [{ input: "int n=0; ft_ft(&n); printf(\"%d\", n);", expected: "42", isHidden: false }],
+  },
+  {
+    title: "Ex 10: ft_swap",
+    slug: "ex10-ft-swap",
+    language: "c",
+    description: "Troque o valor de dois inteiros.\n\n`void ft_swap(int *a, int *b);`",
+    difficulty: Difficulty.EASY,
+    points: 10,
+    hints: ["Use uma variável temp"],
+    solution: "void ft_swap(int *a, int *b) { int t=*a; *a=*b; *b=t; }",
+    explanation: "Swap usando ponteiros.",
+    tags: ["c", "piscine"],
+    testCases: [{ input: "int a=1, b=2; ft_swap(&a,&b); printf(\"%d %d\",a,b);", expected: "2 1", isHidden: false }],
+  },
+  {
+    title: "Ex 11: ft_div_mod",
+    slug: "ex11-ft-div-mod",
+    language: "c",
+    description: "Divide a por b, armazena em div e o resto em mod.\n\n`void ft_div_mod(int a, int b, int *div, int *mod);`",
+    difficulty: Difficulty.EASY,
+    points: 10,
+    hints: ["*div = a / b"],
+    solution: "void ft_div_mod(int a, int b, int *div, int *mod) { *div = a/b; *mod = a%b; }",
+    explanation: "Operações aritméticas com ponteiros.",
+    tags: ["c", "piscine"],
+    testCases: [{ input: "int d,m; ft_div_mod(13,5,&d,&m); printf(\"%d %d\",d,m);", expected: "2 3", isHidden: false }],
+  },
+  {
+    title: "Ex 12: ft_iterative_factorial",
+    slug: "ex12-ft-iterative-factorial",
+    language: "c",
+    description: "Fatorial iterativo. Retorne 0 em erro.\n\n`int ft_iterative_factorial(int nb);`",
+    difficulty: Difficulty.MEDIUM,
+    points: 15,
+    hints: ["nb < 0 return 0", "loop de 1 até nb"],
+    solution: "int ft_iterative_factorial(int nb) { if(nb<0) return 0; int r=1; while(nb>0) r*=nb--; return r; }",
+    explanation: "Fatorial usando loop.",
+    tags: ["c", "piscine"],
+    testCases: [{ input: "printf(\"%d\", ft_iterative_factorial(5));", expected: "120", isHidden: false }],
+  },
+  {
+    title: "Ex 13: ft_recursive_factorial",
+    slug: "ex13-ft-recursive-factorial",
+    language: "c",
+    description: "Fatorial recursivo.\n\n`int ft_recursive_factorial(int nb);`",
+    difficulty: Difficulty.MEDIUM,
+    points: 15,
+    hints: ["nb * factorial(nb-1)"],
+    solution: "int ft_recursive_factorial(int nb) { if(nb<0) return 0; if(nb==0) return 1; return nb * ft_recursive_factorial(nb-1); }",
+    explanation: "Recursividade básica.",
+    tags: ["c", "piscine"],
+    testCases: [{ input: "printf(\"%d\", ft_recursive_factorial(5));", expected: "120", isHidden: false }],
+  },
+  {
+    title: "Ex 14: ft_sqrt",
+    slug: "ex14-ft-sqrt",
+    language: "c",
+    description: "Retorna a raiz quadrada inteira ou 0.\n\n`int ft_sqrt(int nb);`",
     difficulty: Difficulty.MEDIUM,
     points: 20,
-    hints: [
-      "Strings em JS têm o método .split() para transformar em array",
-      "Arrays têm o método .reverse() para inverter",
-      "Use .join() para unir o array de volta em string",
-    ],
-    solution: `function solution(str) {
-  return str.split("").reverse().join("");
-}`,
-    explanation: `## Como funciona
-
-Utilizamos três métodos encadeados:
-
-\`\`\`javascript
-function solution(str) {
-  return str.split("").reverse().join("");
-}
-\`\`\`
-
-1. **split("")**: converte a string em array de caracteres
-2. **reverse()**: inverte o array
-3. **join("")**: une o array de volta em string
-
-**Conceitos aprendidos:**
-- **Métodos de string**: split, join
-- **Métodos de array**: reverse
-- **Method chaining**: encadear métodos`,
-    tags: ["strings", "arrays", "métodos"],
-    testCases: [
-      { input: '"hello"', expected: '"olleh"', isHidden: false },
-      { input: '"JavaScript"', expected: '"tpircSavaJ"', isHidden: false },
-      { input: '"abc"', expected: '"cba"', isHidden: false },
-      { input: '""', expected: '""', isHidden: true },
-      { input: '"a"', expected: '"a"', isHidden: true },
-    ],
+    hints: ["i*i == nb"],
+    solution: "int ft_sqrt(int nb) { if(nb<=0) return 0; int i=1; while(i*i<nb && i<46341) i++; return (i*i==nb)?i:0; }",
+    explanation: "Busca linear da raiz quadrada.",
+    tags: ["c", "piscine"],
+    testCases: [{ input: "printf(\"%d\", ft_sqrt(16));", expected: "4", isHidden: false }],
   },
   {
-    title: "Palíndromo",
-    slug: "palindromo",
-    description: `Crie uma função chamada \`solution\` que retorne \`true\` se a string for um palíndromo (igual lida de frente e de trás) ou \`false\` caso contrário.
-
-**Exemplo:**
-\`\`\`
-solution("racecar") → true
-solution("hello") → false
-solution("madam") → true
-\`\`\`
-
-Ignore maiúsculas/minúsculas na comparação.`,
+    title: "Ex 15: ft_putstr",
+    slug: "ex15-ft-putstr",
+    language: "c",
+    description: "Exibe uma string.\n\n`void ft_putstr(char *str);`",
+    difficulty: Difficulty.EASY,
+    points: 10,
+    hints: ["while(*str)"],
+    solution: "void ft_putchar(char c);\nvoid ft_putstr(char *str) { while(*str) ft_putchar(*str++); }",
+    explanation: "Imprime string char por char.",
+    tags: ["c", "piscine"],
+    testCases: [{ input: "ft_putstr(\"42\");", expected: "42", isHidden: false }],
+  },
+  {
+    title: "Ex 16: ft_strlen",
+    slug: "ex16-ft-strlen",
+    language: "c",
+    description: "Retorna o tamanho da string.\n\n`int ft_strlen(char *str);`",
+    difficulty: Difficulty.EASY,
+    points: 10,
+    hints: ["Contador até \\0"],
+    solution: "int ft_strlen(char *str) { int i=0; while(str[i]) i++; return i; }",
+    explanation: "Contagem de chars.",
+    tags: ["c", "piscine"],
+    testCases: [{ input: "printf(\"%d\", ft_strlen(\"hello\"));", expected: "5", isHidden: false }],
+  },
+  {
+    title: "Ex 17: ft_strcmp",
+    slug: "ex17-ft-strcmp",
+    language: "c",
+    description: "Compara duas strings.\n\n`int ft_strcmp(char *s1, char *s2);`",
     difficulty: Difficulty.MEDIUM,
-    points: 25,
-    hints: [
-      "Converta a string para minúsculas com .toLowerCase()",
-      "Reverta a string e compare com o original",
-      "Use o desafio anterior de reverter string como base!",
-    ],
-    solution: `function solution(str) {
-  const lower = str.toLowerCase();
-  const reversed = lower.split("").reverse().join("");
-  return lower === reversed;
-}`,
-    explanation: `## Como funciona
-
-Comparamos a string original (em minúsculas) com sua versão revertida:
-
-\`\`\`javascript
-function solution(str) {
-  const lower = str.toLowerCase();
-  const reversed = lower.split("").reverse().join("");
-  return lower === reversed;
-}
-\`\`\`
-
-**Conceitos aprendidos:**
-- **toLowerCase()**: normalizar strings
-- **Comparação de strings**: operador ===
-- **Reutilização de lógica**: usar conhecimento de desafios anteriores`,
-    tags: ["strings", "lógica", "intermediário"],
-    testCases: [
-      { input: '"racecar"', expected: "true", isHidden: false },
-      { input: '"hello"', expected: "false", isHidden: false },
-      { input: '"Madam"', expected: "true", isHidden: false },
-      { input: '"a"', expected: "true", isHidden: true },
-      { input: '"abba"', expected: "true", isHidden: true },
-    ],
+    points: 15,
+    hints: ["s1[i] - s2[i]"],
+    solution: "int ft_strcmp(char *s1, char *s2) { while(*s1 && *s1 == *s2) { s1++; s2++; } return (unsigned char)*s1 - (unsigned char)*s2; }",
+    explanation: "Comparação de string.",
+    tags: ["c", "piscine"],
+    testCases: [{ input: "printf(\"%d\", ft_strcmp(\"a\",\"a\"));", expected: "0", isHidden: false }],
   },
   {
-    title: "Fibonacci",
-    slug: "fibonacci",
-    description: `Crie uma função chamada \`solution\` que receba um número \`n\` e retorne o n-ésimo número da sequência de Fibonacci.
-
-A sequência começa: 0, 1, 1, 2, 3, 5, 8, 13, 21, ...
-
-**Exemplo:**
-\`\`\`
-solution(0) → 0
-solution(1) → 1
-solution(6) → 8
-solution(10) → 55
-\`\`\``,
-    difficulty: Difficulty.HARD,
-    points: 40,
-    hints: [
-      "Fibonacci(0) = 0, Fibonacci(1) = 1",
-      "Cada número é a soma dos dois anteriores",
-      "Use um loop for com duas variáveis para os valores anteriores",
-    ],
-    solution: `function solution(n) {
-  if (n <= 0) return 0;
-  if (n === 1) return 1;
-  let prev = 0, curr = 1;
-  for (let i = 2; i <= n; i++) {
-    let next = prev + curr;
-    prev = curr;
-    curr = next;
-  }
-  return curr;
-}`,
-    explanation: `## Como funciona
-
-Usamos programação iterativa para calcular Fibonacci eficientemente:
-
-\`\`\`javascript
-function solution(n) {
-  if (n <= 0) return 0;
-  if (n === 1) return 1;
-  let prev = 0, curr = 1;
-  for (let i = 2; i <= n; i++) {
-    let next = prev + curr;
-    prev = curr;
-    curr = next;
-  }
-  return curr;
-}
-\`\`\`
-
-**Conceitos aprendidos:**
-- **Casos base**: tratar valores especiais primeiro
-- **Loop for**: repetição de código
-- **Variáveis temporárias**: para manter estado
-- **Eficiência**: solução O(n) vs recursão O(2^n)`,
-    tags: ["algoritmos", "loops", "avançado"],
-    testCases: [
-      { input: "0", expected: "0", isHidden: false },
-      { input: "1", expected: "1", isHidden: false },
-      { input: "6", expected: "8", isHidden: false },
-      { input: "10", expected: "55", isHidden: true },
-      { input: "15", expected: "610", isHidden: true },
-    ],
+    title: "Ex 18: ft_print_params",
+    slug: "ex18-ft-print-params",
+    language: "c",
+    description: "Exibe os argumentos do programa (um por linha).\nPrecisa de main().",
+    difficulty: Difficulty.MEDIUM,
+    points: 15,
+    hints: ["argv[i]"],
+    solution: "#include <unistd.h>\nvoid ft_putchar(char c) { write(1,&c,1); }\nint main(int ac, char **av) { for(int i=1;i<ac;i++) { for(int j=0;av[i][j];j++) ft_putchar(av[i][j]); ft_putchar('\\n'); } return 0; }",
+    explanation: "Uso de av e ac.",
+    tags: ["c", "piscine", "program"],
+    testCases: [{ input: "ARGV:hello,world", expected: "hello\nworld", isHidden: false }],
+  },
+  {
+    title: "Ex 20: ft_strdup",
+    slug: "ex20-ft-strdup",
+    language: "c",
+    description: "Duplica uma string com malloc.\n\n`char *ft_strdup(char *src);`",
+    difficulty: Difficulty.MEDIUM,
+    points: 15,
+    hints: ["malloc(len+1)"],
+    solution: "#include <stdlib.h>\nint ft_strlen(char *s) { int i=0; while(s[i]) i++; return i; }\nchar *ft_strdup(char *src) { char *d = malloc(ft_strlen(src)+1); if(!d) return 0; int i=0; while(src[i]) { d[i]=src[i]; i++; } d[i]=0; return d; }",
+    explanation: "Alocação dinâmica.",
+    tags: ["c", "piscine"],
+    testCases: [{ input: "char *s = ft_strdup(\"test\"); printf(\"%s\", s); free(s);", expected: "test", isHidden: false }],
+  },
+  {
+    title: "Ex 21: ft_range",
+    slug: "ex21-ft-range",
+    language: "c",
+    description: "Retorna array de int de min até max (excluído).\n\n`int *ft_range(int min, int max);`",
+    difficulty: Difficulty.MEDIUM,
+    points: 20,
+    hints: ["malloc((max-min)*sizeof(int))"],
+    solution: "#include <stdlib.h>\nint *ft_range(int min, int max) { if(min>=max) return 0; int *r = malloc((max-min)*4); for(int i=0;i<max-min;i++) r[i]=min+i; return r; }",
+    explanation: "Array dinâmico.",
+    tags: ["c", "piscine"],
+    testCases: [{ input: "int *r = ft_range(1,4); printf(\"%d %d %d\",r[0],r[1],r[2]); free(r);", expected: "1 2 3", isHidden: false }],
+  },
+  {
+    title: "Ex 25: ft_foreach",
+    slug: "ex25-ft-foreach",
+    language: "c",
+    description: "Aplica uma função f em cada elemento do array tab.\n\n`void ft_foreach(int *tab, int length, void (*f)(int));`",
+    difficulty: Difficulty.MEDIUM,
+    points: 20,
+    hints: ["f(tab[i])"],
+    solution: "void ft_foreach(int *tab, int length, void (*f)(int)) { for(int i=0;i<length;i++) f(tab[i]); }",
+    explanation: "Function pointers.",
+    tags: ["c", "piscine"],
+    testCases: [{ input: "void f(int n){printf(\"%d\",n);} int t[]={1,2,3}; ft_foreach(t,3,f);", expected: "123", isHidden: false }],
   },
 ];
 
 async function seed() {
-  console.log("🌱 Iniciando seed do banco de dados...");
+  console.log("🌱 Populando todos os desafios (Piscine)...");
 
-  // Clean existing data
   await prisma.submission.deleteMany();
   await prisma.testCase.deleteMany();
   await prisma.challenge.deleteMany();
 
   for (const challenge of challenges) {
     const { testCases, ...challengeData } = challenge;
-    const created = await prisma.challenge.create({
+    await prisma.challenge.create({
       data: {
         ...challengeData,
         testCases: {
@@ -348,7 +280,7 @@ async function seed() {
         },
       },
     });
-    console.log(`✅ Desafio criado: ${created.title}`);
+    console.log(`✅ ${challenge.title} criado.`);
   }
 
   console.log("🎉 Seed completo!");

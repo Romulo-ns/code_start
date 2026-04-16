@@ -10,6 +10,7 @@ interface CodeEditorProps {
   challengeId: string;
   testCases: TestCase[];
   defaultCode?: string;
+  language?: string;
 }
 
 const DEFAULT_CODE = `function solution() {
@@ -17,7 +18,7 @@ const DEFAULT_CODE = `function solution() {
   
 }`;
 
-export function CodeEditor({ challengeId, testCases, defaultCode = DEFAULT_CODE }: CodeEditorProps) {
+export function CodeEditor({ challengeId, testCases, defaultCode = DEFAULT_CODE, language = "javascript" }: CodeEditorProps) {
   const { data: session } = useSession();
   const router = useRouter();
   const [code, setCode] = useState(defaultCode);
@@ -28,17 +29,17 @@ export function CodeEditor({ challengeId, testCases, defaultCode = DEFAULT_CODE 
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
   const [activeTab, setActiveTab] = useState<"run" | "submit">("run");
 
-  const handleRun = useCallback(() => {
+  const handleRun = useCallback(async () => {
     setIsRunning(true);
     setRunResults(null);
     setActiveTab("run");
     try {
-      const results = runCode(code, testCases);
+      const results = await runCode(code, testCases, language);
       setRunResults(results);
     } finally {
       setIsRunning(false);
     }
-  }, [code, testCases]);
+  }, [code, testCases, language]);
 
   const handleSubmit = useCallback(async () => {
     if (!session) {
@@ -53,7 +54,7 @@ export function CodeEditor({ challengeId, testCases, defaultCode = DEFAULT_CODE 
       const res = await fetch("/api/submissions", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ code, challengeId, language: "javascript" }),
+        body: JSON.stringify({ code, challengeId, language }),
       });
       const data = await res.json();
       setSubmitResults(data.results);
@@ -62,7 +63,7 @@ export function CodeEditor({ challengeId, testCases, defaultCode = DEFAULT_CODE 
     } finally {
       setIsSubmitting(false);
     }
-  }, [code, challengeId, session, router]);
+  }, [code, challengeId, language, session, router]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Tab") {
@@ -88,10 +89,10 @@ export function CodeEditor({ challengeId, testCases, defaultCode = DEFAULT_CODE 
             <div className="w-3 h-3 rounded-full bg-yellow-500/60" />
             <div className="w-3 h-3 rounded-full bg-green-500/60" />
           </div>
-          <span className="text-xs text-slate-500 font-mono ml-2">solution.js</span>
+          <span className="text-xs text-slate-500 font-mono ml-2">solution.{language === "javascript" ? "js" : "c"}</span>
         </div>
         <span className="text-xs text-slate-500 px-2 py-0.5 bg-[#1a1a24] rounded border border-[#2a2a3a]">
-          JavaScript
+          {language === "javascript" ? "JavaScript" : "C"}
         </span>
       </div>
 

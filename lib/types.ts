@@ -7,6 +7,7 @@ export interface Challenge {
   description: string;
   difficulty: Difficulty;
   points: number;
+  language: string;
   hints: string[];
   solution: string;
   explanation: string;
