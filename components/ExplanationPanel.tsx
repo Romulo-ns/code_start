@@ -12,7 +12,7 @@ export function ExplanationPanel({ explanation }: { explanation: string }) {
     .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
     .replace(/^## (.+)$/gm, "<h2>$1</h2>")
     .replace(/^- (.+)$/gm, "<li>$1</li>")
-    .replace(/(<li>.*<\/li>\n?)+/gs, "<ul>$&</ul>")
+    .replace(/(<li>[\s\S]*<\/li>\n?)+/g, "<ul>$&</ul>")
     .replace(/\n\n/g, "</p><p>")
     .replace(/^(?!<[a-z])(.+)/gm, "<p>$1</p>");
 
